@@ -1176,6 +1176,69 @@ export function getActions(self) {
 		ir_on: { name: 'IR Remote: Enable', options: [], callback: async () => self.send(C.irOn()) },
 		ir_off: { name: 'IR Remote: Disable', options: [], callback: async () => self.send(C.irOff()) },
 
+		/* ───────── Image Flip / Mirror (v1.18.0) ─────────
+		 * Sony VISCA CAM_PictureFlip (0x04 0x66) = vertical flip (upside-down)
+		 * Sony VISCA CAM_LR_Reverse (0x04 0x61) = horizontal mirror (left↔right)
+		 * All three toggle actions track state locally (self.state.flipOn /
+		 * self.state.mirrorOn) since Tenveo VHD firmware often ignores the
+		 * corresponding inquiries silently. */
+		image_flip_toggle: {
+			name: 'Image: Toggle Flip (upside-down on ↔ off)',
+			options: [],
+			callback: async () => {
+				const next = !self.state.flipOn
+				self.state.flipOn = next
+				self.setVariableValues({ image_flip: next ? 'on' : 'off' })
+				await self.send(next ? C.flipOn() : C.flipOff())
+			},
+		},
+		image_mirror_toggle: {
+			name: 'Image: Toggle Mirror (left↔right on ↔ off)',
+			options: [],
+			callback: async () => {
+				const next = !self.state.mirrorOn
+				self.state.mirrorOn = next
+				self.setVariableValues({ image_mirror: next ? 'on' : 'off' })
+				await self.send(next ? C.mirrorOn() : C.mirrorOff())
+			},
+		},
+		image_flip_mirror_toggle: {
+			name: 'Image: Toggle Flip + Mirror (both on ↔ both off, single button)',
+			options: [],
+			callback: async () => {
+				// Use flipOn as the master state — flip both together.
+				const next = !self.state.flipOn
+				self.state.flipOn = next
+				self.state.mirrorOn = next
+				self.setVariableValues({
+					image_flip: next ? 'on' : 'off',
+					image_mirror: next ? 'on' : 'off',
+				})
+				await self.send(next ? C.flipOn() : C.flipOff())
+				await self.send(next ? C.mirrorOn() : C.mirrorOff())
+			},
+		},
+		image_flip_on: { name: 'Image: Flip ON', options: [], callback: async () => {
+			self.state.flipOn = true
+			self.setVariableValues({ image_flip: 'on' })
+			await self.send(C.flipOn())
+		} },
+		image_flip_off: { name: 'Image: Flip OFF', options: [], callback: async () => {
+			self.state.flipOn = false
+			self.setVariableValues({ image_flip: 'off' })
+			await self.send(C.flipOff())
+		} },
+		image_mirror_on: { name: 'Image: Mirror ON', options: [], callback: async () => {
+			self.state.mirrorOn = true
+			self.setVariableValues({ image_mirror: 'on' })
+			await self.send(C.mirrorOn())
+		} },
+		image_mirror_off: { name: 'Image: Mirror OFF', options: [], callback: async () => {
+			self.state.mirrorOn = false
+			self.setVariableValues({ image_mirror: 'off' })
+			await self.send(C.mirrorOff())
+		} },
+
 		/* ───────── Exposure ───────── */
 		exposure_mode: {
 			name: 'Exposure: Mode',

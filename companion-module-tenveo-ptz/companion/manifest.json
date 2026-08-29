@@ -3,7 +3,7 @@
 	"name": "tenveo-ptz",
 	"shortname": "Tenveo PTZ",
 	"description": "Control Tenveo PTZ cameras (e.g. TEVO-VHD20HAN) over VISCA-over-IP (UDP 52381). Includes button and Stream Deck + encoder/rotary actions, presets, feedbacks and variables.",
-	"version": "1.17.2",
+	"version": "1.18.0",
 	"license": "MIT",
 	"repository": "https://github.com/CSR1973/companion-module-tenveo-ptz",
 	"bugs": "https://github.com/CSR1973/companion-module-tenveo-ptz/issues",

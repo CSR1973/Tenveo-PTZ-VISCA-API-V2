@@ -147,6 +147,7 @@ You can also assign any standard button action to an encoder press; rotation wil
 
 ## Changelog
 
+- **1.18.0** — Image Flip / Mirror actions. Three toggles: `Image: Toggle Flip` (vertical/upside-down), `Image: Toggle Mirror` (horizontal/LR reverse), and `Image: Toggle Flip + Mirror` (both at once from a single button). Plus explicit ON/OFF variants. New `image_flip` and `image_mirror` state variables for button feedback.
 - **1.17.2** — OSD Menu Navigation is now always broadcast (fires CAM_Menu-Nav + pt-drive @ speeds 3, 6, 14 + a pt-stop). Removed the `OSD Menu Navigation style` dropdown from the connection config since field testing confirmed Tenveo VHD20HAN only responds when all styles are sent at once.
 - **1.17.1** — Fixed Save button greyed out in the connection-edit panel after module upgrades. `init()` and `configUpdated()` now backfill any missing config keys with their defaults from `getConfigFields()` and persist back via `saveConfig()`, so newly-added fields no longer fail Companion's "A value must be provided" validation.
 - **1.17.0** — OSD Nav dispatcher: connection config now has an `OSD Menu Navigation style` dropdown so users can switch between CAM_Menu-Nav (Sony spec), pan/tilt drive at speeds 3 / 6 / 14, or a "broadcast" mode that fires all styles at once — until one of them works on their firmware revision.

@@ -95,6 +95,8 @@ class TenveoInstance extends InstanceBase {
 			presetSaveIdx: 1,
 			presetRecallIdx: 1,
 			menuOpen: false,
+			flipOn: false,
+			mirrorOn: false,
 		}
 		this._pulseTimers = {}
 
@@ -153,6 +155,8 @@ class TenveoInstance extends InstanceBase {
 			warmth: 0,
 			preset_save_index: this.state?.presetSaveIdx ?? 1,
 			preset_recall_index: this.state?.presetRecallIdx ?? 1,
+			image_flip: this.state?.flipOn ? 'on' : 'off',
+			image_mirror: this.state?.mirrorOn ? 'on' : 'off',
 		})
 	}
 
