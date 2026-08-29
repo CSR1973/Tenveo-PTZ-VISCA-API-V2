@@ -29,8 +29,9 @@ function assert(name, cond, extra = '') {
 const mainSrc = fs.readFileSync(path.join(__dirname, '..', 'src', 'main.js'), 'utf8')
 
 function test1_upgradeScriptRegistered() {
-	console.log('\n[TEST 1] main.js registers the migrateExpCompActionIds upgrade script')
-	assert('runEntrypoint call passes an upgrade-script array', /runEntrypoint\(\s*TenveoInstance\s*,\s*\[/.test(mainSrc))
+	console.log('\n[TEST 1] main.js exports migrateExpCompActionIds via UpgradeScripts (Companion API v2)')
+	assert('UpgradeScripts array is exported', /export\s+const\s+UpgradeScripts\s*=\s*\[/.test(mainSrc))
+	assert('default-export of TenveoInstance', /export\s+default\s+TenveoInstance/.test(mainSrc))
 	assert('migrateExpCompActionIds function defined', /function\s+migrateExpCompActionIds\s*\(/.test(mainSrc))
 }
 

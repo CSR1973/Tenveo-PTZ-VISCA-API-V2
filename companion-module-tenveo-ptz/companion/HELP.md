@@ -147,6 +147,7 @@ You can also assign any standard button action to an encoder press; rotation wil
 
 ## Changelog
 
+- **2.0.0** — Migrated to Companion API v2 (`@companion-module/base` 2.x, `@companion-module/tools` 3.x, Node 22+). Manifest updated to `type: "connection"`, `runtime.type: "node22"`, `apiVersion: "2.0.0"`. Entry-point changed from `runEntrypoint()` to `export default TenveoInstance` + `export const UpgradeScripts`. Presets converted from `type: "button"` → `type: "simple"`. All 16 test suites (460 assertions) still pass. Requires **Bitfocus Companion 5.0+**.
 - **1.18.0** — Image Flip / Mirror actions. Three toggles: `Image: Toggle Flip` (vertical/upside-down), `Image: Toggle Mirror` (horizontal/LR reverse), and `Image: Toggle Flip + Mirror` (both at once from a single button). Plus explicit ON/OFF variants. New `image_flip` and `image_mirror` state variables for button feedback.
 - **1.17.2** — OSD Menu Navigation is now always broadcast (fires CAM_Menu-Nav + pt-drive @ speeds 3, 6, 14 + a pt-stop). Removed the `OSD Menu Navigation style` dropdown from the connection config since field testing confirmed Tenveo VHD20HAN only responds when all styles are sent at once.
 - **1.17.1** — Fixed Save button greyed out in the connection-edit panel after module upgrades. `init()` and `configUpdated()` now backfill any missing config keys with their defaults from `getConfigFields()` and persist back via `saveConfig()`, so newly-added fields no longer fail Companion's "A value must be provided" validation.

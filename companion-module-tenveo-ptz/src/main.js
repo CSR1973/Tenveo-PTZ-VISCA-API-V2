@@ -1,4 +1,4 @@
-import { InstanceBase, InstanceStatus, runEntrypoint } from '@companion-module/base'
+import { InstanceBase, InstanceStatus } from '@companion-module/base'
 
 import { getConfigFields } from './config.js'
 import { getActions } from './actions.js'
@@ -408,7 +408,12 @@ class TenveoInstance extends InstanceBase {
 	}
 }
 
-runEntrypoint(TenveoInstance, [
+/* v2.0.0 — Companion API v2 entry point (@companion-module/base 2.x).
+ *   • Default-export the InstanceBase subclass.
+ *   • Named-export the upgrade-scripts array.
+ * The old runEntrypoint() helper is gone; Companion 5.x wires the module up
+ * automatically via these two exports. */
+export const UpgradeScripts = [
 	// v1.14.0 — migrate any legacy ExpComp action IDs to their current names.
 	// Companion persists the actionId inside each button; if the module was
 	// upgraded from an earlier build where an ID had a different name, the
@@ -437,4 +442,6 @@ runEntrypoint(TenveoInstance, [
 		}
 		return { updatedConfig: null, updatedActions, updatedFeedbacks: [] }
 	},
-])
+]
+
+export default TenveoInstance

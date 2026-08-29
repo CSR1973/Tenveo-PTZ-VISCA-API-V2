@@ -85,10 +85,12 @@ async function test4_builtTarballHasCorrectManifest() {
 	fs.mkdirSync(tmp, { recursive: true })
 	try {
 		execSync(`tar -xzf "${tgz}" -C "${tmp}"`)
-		const maniPath = path.join(tmp, 'pkg/companion/manifest.json')
-		const mainJs = path.join(tmp, 'pkg/main.js')
-		assert('pkg/companion/manifest.json exists in tarball', fs.existsSync(maniPath))
-		assert('pkg/main.js exists in tarball', fs.existsSync(mainJs))
+		// @companion-module/tools 3.x uses the manifest id ('tenveo-ptz') as
+		// the tarball's top-level folder instead of the legacy 'pkg/'.
+		const maniPath = path.join(tmp, 'tenveo-ptz/companion/manifest.json')
+		const mainJs = path.join(tmp, 'tenveo-ptz/main.js')
+		assert('tenveo-ptz/companion/manifest.json exists in tarball', fs.existsSync(maniPath))
+		assert('tenveo-ptz/main.js exists in tarball', fs.existsSync(mainJs))
 		if (fs.existsSync(maniPath)) {
 			const mani = JSON.parse(fs.readFileSync(maniPath, 'utf8'))
 			assert(`tarball manifest version = ${pkg.version}`, mani.version === pkg.version, `got ${mani.version}`)
