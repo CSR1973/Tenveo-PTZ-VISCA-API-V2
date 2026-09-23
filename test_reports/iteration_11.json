@@ -1,0 +1,44 @@
+{
+  "summary": "Validated the v2.0.1 fix for the Companion 5.x setVariableDefinitions API-shape bug in companion-module-tenveo-ptz. Ran `npm test` (17 suites, 524 assertions all passing), verified the new regression-guard test, and inspected the built tarball tenveo-ptz-2.0.1.tgz. All checks pass.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_results": {
+    "command": "cd /app/companion-module-tenveo-ptz && npm test",
+    "total_suites": 17,
+    "total_assertions": 524,
+    "assertions_breakdown": [26,32,40,40,22,43,21,29,33,11,21,23,17,20,50,32,64],
+    "failures": 0,
+    "exit_code": 0,
+    "new_regression_guard": {
+      "file": "test/api-v2-variable-shape.test.js",
+      "assertions": 64,
+      "status": "PASS",
+      "checks": [
+        "getVariables() is a plain object, NOT an array (matches Companion 5.x Array.isArray rejection)",
+        "All 31 required variable IDs present with {name: string} shape",
+        "Simulated @companion-module/base 2.x setVariableDefinitions() acceptance check passes"
+      ]
+    },
+    "tarball_verification": {
+      "path": "/app/companion-module-tenveo-ptz/tenveo-ptz-2.0.1.tgz",
+      "size_bytes": 24852,
+      "bundled_main_js_size": 78550,
+      "no_array_pattern_in_setVariableDefinitions": true,
+      "object_literal_keys_found": ["exposure_compensation", "zoom_percent", "image_flip", "onvif_ready", "camera_name", "warmth", "preset_recall_index"]
+    }
+  },
+  "test_report_links": ["/app/companion-module-tenveo-ptz/test/api-v2-variable-shape.test.js"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Fix is minimal, correct and targeted: src/variables.js now returns an object literal matching @companion-module/base 2.x contract.",
+    "Regression-guard test reproduces the exact Array.isArray() check from Companion 5.x — good long-term protection.",
+    "Bundled main.js in the built tarball contains no `setVariableDefinitions([...])` array-call pattern; object-literal keys are present.",
+    "Physical install on real Companion 5.0.4 + Stream Deck cannot be automated here — user must confirm CAM01 instance init succeeds after installing 2.0.1."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (524/524 assertions, 17/17 suites)", "frontend": "N/A - no frontend"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "This is a Node.js Bitfocus Companion module (no web server, no REST API, no frontend). Testing is limited to `npm test` at /app/companion-module-tenveo-ptz and inspection of the built .tgz. Ignore the /app/backend and /app/frontend supervisor services — they are unrelated to this module."
+}
