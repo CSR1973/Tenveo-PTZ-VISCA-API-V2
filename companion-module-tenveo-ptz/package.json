@@ -1,6 +1,6 @@
 {
 	"name": "companion-module-tenveo-ptz",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"main": "src/main.js",
 	"type": "module",
 	"description": "Bitfocus Companion module for Tenveo PTZ cameras (VISCA over IP)",
@@ -10,7 +10,7 @@
 		"build": "npm run sync-manifest && companion-module-build",
 		"lint": "eslint .",
 		"format": "prettier -w .",
-		"test": "node test/step-calibration.test.js && node test/axis-home-and-zoom.test.js && node test/backlight-focus-home.test.js && node test/focus-tracking.test.js && node test/realtime-publish.test.js && node test/expcomp-iris.test.js && node test/manifest-sync.test.js && node test/rotary-track-expcomp-toggle.test.js && node test/focus-af-sync-ae-toggle.test.js && node test/callback-safety.test.js && node test/upgrade-script.test.js && node test/preset-rotary.test.js && node test/zoom-rotary-tick.test.js && node test/osd-menu.test.js && node test/config-backfill.test.js && node test/image-flip-mirror.test.js && node test/api-v2-variable-shape.test.js",
+		"test": "node test/step-calibration.test.js && node test/axis-home-and-zoom.test.js && node test/backlight-focus-home.test.js && node test/focus-tracking.test.js && node test/realtime-publish.test.js && node test/expcomp-iris.test.js && node test/manifest-sync.test.js && node test/rotary-track-expcomp-toggle.test.js && node test/focus-af-sync-ae-toggle.test.js && node test/callback-safety.test.js && node test/upgrade-script.test.js && node test/preset-rotary.test.js && node test/zoom-rotary-tick.test.js && node test/osd-menu.test.js && node test/config-backfill.test.js && node test/image-flip-mirror.test.js && node test/api-v2-variable-shape.test.js && node test/api-v2-preset-shape.test.js",
 		"test:cli": "node test/cli.js",
 		"test:mock": "node test/mock-camera.js"
 	},

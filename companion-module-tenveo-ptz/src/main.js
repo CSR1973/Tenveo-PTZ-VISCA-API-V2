@@ -103,7 +103,8 @@ class TenveoInstance extends InstanceBase {
 		this.setActionDefinitions(getActions(this))
 		this.setFeedbackDefinitions(getFeedbacks(this))
 		this.setVariableDefinitions(getVariables())
-		this.setPresetDefinitions(getPresets())
+		const { structure, presets } = getPresets()
+		this.setPresetDefinitions(structure, presets)
 
 		this._publishStaticVars()
 		await this._connect()
