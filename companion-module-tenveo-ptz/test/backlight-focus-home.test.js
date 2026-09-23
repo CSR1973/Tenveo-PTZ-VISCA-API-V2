@@ -250,9 +250,9 @@ async function test11_focusPercentVariableRegistered() {
 	console.log('\n[TEST 11] focus_percent variable is registered')
 	const { getVariables } = await import('../src/variables.js')
 	const vars = getVariables()
-	const fp = vars.find((v) => v.variableId === 'focus_percent')
-	assert('focus_percent variable registered', !!fp, JSON.stringify(vars.map((v) => v.variableId)))
-	const bl = vars.find((v) => v.variableId === 'backlight')
+	const fp = vars.focus_percent
+	assert('focus_percent variable registered', !!fp, JSON.stringify(Object.keys(vars)))
+	const bl = vars.backlight
 	assert('backlight variable registered', !!bl)
 }
 

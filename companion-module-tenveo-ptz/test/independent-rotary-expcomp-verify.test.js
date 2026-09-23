@@ -147,7 +147,7 @@ async function invokeAction(actions, key, self, options) {
 	{
 		const self = makeFakeSelf()
 		const defs = getVariables(self)
-		const ids = defs.map(v => v.variableId)
+		const ids = Object.keys(defs)
 		ok(ids.includes('exposure_compensation_mode'), 'exposure_compensation_mode listed', ids.join(','))
 	}
 

@@ -178,9 +178,9 @@ async function test9_gainRoutesToExpCompOnNDI() {
 async function test10_variablesRegistered() {
 	console.log('\n[TEST 10] exposure_compensation + iris_fstop registered in variables.js')
 	const vars = getVariables()
-	assert('exposure_compensation registered', vars.some((v) => v.variableId === 'exposure_compensation'), JSON.stringify(vars.map((v) => v.variableId)))
-	assert('iris_fstop registered', vars.some((v) => v.variableId === 'iris_fstop'))
-	assert('iris still registered', vars.some((v) => v.variableId === 'iris'))
+	assert('exposure_compensation registered', !!vars.exposure_compensation, JSON.stringify(Object.keys(vars)))
+	assert('iris_fstop registered', !!vars.iris_fstop)
+	assert('iris still registered', !!vars.iris)
 }
 
 async function test11_gainRotaryRoutingOnNDI() {

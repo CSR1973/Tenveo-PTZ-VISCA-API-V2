@@ -152,7 +152,7 @@ async function test7_feedbackRegistered() {
 async function test8_variableRegistered() {
 	console.log('\n[TEST 8] exposure_compensation_mode variable registered')
 	const vars = getVariables()
-	assert('exposure_compensation_mode registered', vars.some((v) => v.variableId === 'exposure_compensation_mode'), JSON.stringify(vars.map((v) => v.variableId)))
+	assert('exposure_compensation_mode registered', !!vars.exposure_compensation_mode, JSON.stringify(Object.keys(vars)))
 }
 
 async function test9_focusRotaryDisplayNames() {

@@ -151,7 +151,7 @@ async function test6_aeModeToggleFlips() {
 async function test7_focusModeVariableRegistered() {
 	console.log('\n[TEST 7] focus_mode variable registered')
 	const vars = getVariables()
-	assert('focus_mode registered', vars.some((v) => v.variableId === 'focus_mode'), JSON.stringify(vars.map((v) => v.variableId)))
+	assert('focus_mode registered', !!vars.focus_mode, JSON.stringify(Object.keys(vars)))
 }
 
 async function test8_focusAutoWithoutViscaDoesntCrash() {

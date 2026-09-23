@@ -235,9 +235,9 @@ async function test10_configFieldExists() {
 async function test11_focusVarsRegisteredInVariablesJs() {
 	console.log('\n[TEST 11] focus_position + focus_percent are registered in variables.js')
 	const vars = getVariables()
-	const fp = vars.find((v) => v.variableId === 'focus_position')
-	const fperc = vars.find((v) => v.variableId === 'focus_percent')
-	assert('focus_position registered', !!fp, JSON.stringify(vars.map((v) => v.variableId)))
+	const fp = vars.focus_position
+	const fperc = vars.focus_percent
+	assert('focus_position registered', !!fp, JSON.stringify(Object.keys(vars)))
 	assert('focus_percent registered', !!fperc)
 	assert('focus_position label mentions 0-16384', fp && /16384/.test(fp.name))
 	assert('focus_percent label mentions near/far', fperc && /near.*far/i.test(fperc.name))
