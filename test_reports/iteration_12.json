@@ -1,0 +1,15 @@
+{
+  "summary": "Verified Companion 5.x API v2 preset shape fix in companion-module-tenveo-ptz v2.0.2. Ran full `npm test` suite: 379/379 assertions passed across all 18 test files, including new test/api-v2-preset-shape.test.js which reproduces host's sanitisePresetDefinitions() Object.entries logic. Confirmed getPresets() returns { structure, presets }, sections have {id,name,definitions}, no `category` field on individual presets. Verified built tarball tenveo-ptz-2.0.2.tgz bundled main.js calls this.setPresetDefinitions(o,a) with TWO args after destructuring getPresets(). Version alignment confirmed: package.json=2.0.2, manifest.json=2.0.2. Previous variables.js regression test still passes.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": ["/app/companion-module-tenveo-ptz/test/api-v2-preset-shape.test.js"],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "N/A (no frontend)"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Node module — run `cd /app/companion-module-tenveo-ptz && npm test`. All 18 test files, 379 assertions pass. Bundled main.js in tenveo-ptz-2.0.2.tgz confirmed to invoke setPresetDefinitions with two args (structure, presets), matching Companion 5.x API v2. No `category` on individual presets — categories only used to build section list.",
+  "rca of the issue": "Companion 5.x host's sanitisePresetDefinitions expects `presets` to be a plain object of PresetDefinitions and receives a separate `structure` array of sections. v2.0.1 was passing a single flat object with legacy `category` strings on each preset (Companion 4.x style), which caused Object.entries(undefined) to throw when the host tried to iterate the second (missing) argument. Fix: presets.js now builds { structure: [{id,name,type:'simple',definitions:[ids]}], presets: {id: def-without-category} }; main.js destructures and calls setPresetDefinitions(structure, presets). Regression test reproduces the host's Object.entries(presets) call to guard against future breakage."
+}

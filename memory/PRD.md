@@ -20,7 +20,26 @@ Build a Bitfocus Companion 4.x module for Tenveo PTZ cameras (TEVO-VHD20HAN, TEV
 
 ## Implementation Status
 
-### v1.16.1 (2026-02) — OSD menu navigation fix
+### v2.0.2 (2026-02) — Companion 5.x preset shape crash fix
+- Fixed `TypeError: Cannot convert undefined or null to object at sanitisePresetDefinitions` on module init in Companion 5.0.4.
+- Companion API v2 changed `setPresetDefinitions()` to a two-argument call `(structure, presets)` and moved `category` off individual presets into a top-level section list.
+- `src/presets.js` now returns `{ structure, presets }`; `src/main.js` spreads both.
+- Added `test/api-v2-preset-shape.test.js` regression suite (reproduces host's `Object.entries(presets)` sanitiser).
+- **18 test files, 379 assertions passing.**
+- Built artifact: `tenveo-ptz-2.0.2.tgz`.
+
+### v2.0.1 — Companion 5.x variables shape crash fix
+- Fixed `Variable definitions should be an object, not an array`.
+- `src/variables.js` now exports an object keyed by variable id.
+- Added `test/api-v2-variable-shape.test.js`.
+
+### v2.0.0 — Companion API v2 migration
+- Bumped to `@companion-module/base` 2.x, `@companion-module/tools` 3.x, Node 22+.
+- Manifest updated (`type: connection`, `runtime.type: node22`, `apiVersion: 2.0.0`).
+- Entry-point moved from `runEntrypoint()` → `export default TenveoInstance` + `export const UpgradeScripts`.
+- Presets converted from `type: 'button'` → `type: 'simple'`.
+
+### v1.16.1 — OSD menu navigation fix
 - Replaced pan/tilt-drive-based OSD navigation with the correct standard
   VISCA CAM_Menu-Nav opcodes (`0x06 0x01 0x0E 0x0E …`).
 - `menu_enter` → `0x06 06 05` (CAM_MenuReturn OK), `menu_back` → `0x06 06 04`
@@ -65,7 +84,7 @@ Build a Bitfocus Companion 4.x module for Tenveo PTZ cameras (TEVO-VHD20HAN, TEV
   `actions/image.js`, `actions/preset.js`, etc.
 
 ## Testing
-- `npm test` runs 14 suites, **373 assertions**, all passing (2026-02).
+- `npm test` runs **18 suites, 379 assertions**, all passing (v2.0.2, 2026-02).
 - Physical hardware testing on `192.168.88.11–14` requires user's local network.
 
 ## Credentials
